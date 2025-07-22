@@ -1,0 +1,6 @@
+[submodule "Templates/01/extern/NeneIcecream"]
+	path = Templates/01/extern/NeneIcecream
+	url = https://github.com/SakuraNeneCpp/NeneIcecream.git
+[submodule "Templates/01/extern/googletest"]
+	path = Templates/01/extern/googletest
+	url = https://github.com/google/googletest.git
