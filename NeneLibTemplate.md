@@ -281,12 +281,12 @@ namespace nene {
 ### 5. ビルド
 #### A. サンドボックス実行
 ```bash
-cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug -DBUILD_SANDBOX=ON -DBUILD_TESTS=OFF
-cmake --build build/debug -j
-./build/debug/tests/Debug/sandbox
+cmake -S . -B build -DBUILD_SANDBOX=ON -DBUILD_TESTS=OFF
+cmake --build build --config Debug -j
+./build/tests/Debug/sandbox
 # 実行ファイルの場所は環境によって異なる
-# Linux/macOS : build/debug/tests/sandbox
-# Windows     : build/debug/tests/Debug/sandbox.exe など
+# Linux/macOS : build/tests/sandbox
+# Windows     : build/tests/Debug/sandbox.exe など
 ```
 #### B. テスト実行
 ```bash
