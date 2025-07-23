@@ -290,8 +290,8 @@ cmake --build build --config Debug -j
 ```
 #### B. テスト実行
 ```bash
-cmake -S . -B build/test -DCMAKE_BUILD_TYPE=Debug -DBUILD_SANDBOX=OFF -DBUILD_TESTS=ON
-cmake --build build/test -j
+cmake -S . -B build -DBUILD_SANDBOX=OFF -DBUILD_TESTS=ON
+cmake --build build --config Debug -j
 ctest --test-dir build/test --output-on-failure
 ```
 最後のコマンドは, Visual Studio / Xcode / Ninja Multi-Config を使う場合は：
