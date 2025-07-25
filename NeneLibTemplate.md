@@ -235,43 +235,27 @@ git config --local user.email "skrnn0505@gmail.com"
 ### 3. git submodules
 ```bash
 git submodule add https://github.com/SakuraNeneCpp/NeneIcecream.git extern/NeneIcecream
-git submodule add https://github.com/google/googletest.git extern/googletest
+git submodule add https://github.com/SakuraNeneCpp/NenePancake.git extern/NenePancake
 git submodule update --init --recursive
 ```
 ### 4. コーディング
 (頑張って書く)
 
 ### 5. ビルド
-#### A. サンドボックス実行
+#### A. サンドボックス / テスト
 ```bash
+# 下のコマンドのON/OFFを切り替える
 cmake -S . -B build -DBUILD_SANDBOX=ON -DBUILD_TESTS=OFF
 cmake --build build --config Debug -j
-./build/tests/Debug/sandbox
+./build/tests/Debug/sandbox.exe
 # 実行ファイルの場所は環境によって異なる
-# Linux/macOS : build/tests/sandbox
-# Windows     : build/tests/Debug/sandbox.exe など
 ```
-#### B. テスト実行
+#### B. リリースビルド
 ```bash
-cmake -S . -B build -DBUILD_SANDBOX=OFF -DBUILD_TESTS=ON
-cmake --build build --config Debug -j
-ctest --test-dir build/test --output-on-failure
-```
-最後のコマンドは, Visual Studio / Xcode / Ninja Multi-Config を使う場合は：
-```bash
-ctest --test-dir build/test -C Debug --output-on-failure
-```
-#### C. リリースビルド
-```bash
-cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release -DBUILD_SANDBOX=OFF -DBUILD_TESTS=OFF
-cmake --build build/release -j
+cmake -S . -B build -DBUILD_SANDBOX=OFF -DBUILD_TESTS=OFF
+cmake --build build --config Release -j
 ```
 
-#### インストール
-今, NeneLibraryを `/path/to/install` にインストールしたいとします.
-```bash
-cmake --install build/release --prefix /path/to/install
-```
 
 ## 命名と変換
 最低でも, 以下を各自で命名する必要があります.
