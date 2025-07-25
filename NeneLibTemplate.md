@@ -118,115 +118,33 @@ if (NOT DEFINED BUILD_SANDBOX)
   set(BUILD_SANDBOX ON CACHE BOOL "Build sandbox executable")
 endif()
 if (NOT DEFINED BUILD_UNIT_TESTS)
-  set(BUILD_UNIT_TESTS ${BUILD_TESTS} CACHE BOOL "Build GoogleTest-based unit tests")
-endif()
-if (NOT DEFINED USE_SUBMODULE_GTEST)
-  set(USE_SUBMODULE_GTEST ON CACHE BOOL "Use embedded googletest submodule")
+  set(BUILD_UNIT_TESTS ${BUILD_TESTS} CACHE BOOL "Build unit tests executable")
 endif()
 
 # extern ディレクトリ（プロジェクト直下想定）
 set(EXTERN_DIR "${PROJECT_SOURCE_DIR}/extern")
 
-# --------------------------------------------------------------------------
-# 1 Sandbox
-# --------------------------------------------------------------------------
+# Sandbox
 if (BUILD_SANDBOX)
+    add_subdirectory("${EXTERN_DIR}/NeneIcecream" "${CMAKE_CURRENT_BINARY_DIR}/_icecream")
     add_executable(sandbox sandbox.cpp)
-    target_link_libraries(sandbox PRIVATE NeneLibrary)
-
-    # --- NeneIcecream（ヘッダオンリー or 付属CMakeあり のどちらにも対応）---
-    if (EXISTS "${EXTERN_DIR}/NeneIcecream/CMakeLists.txt")
-        # もし NeneIcecream 自体が CMake 対応なら
-        add_subdirectory("${EXTERN_DIR}/NeneIcecream" "${CMAKE_BINARY_DIR}/_icecream")
-        # target が NeneIcecream という名前とは限らないので要確認
-        # target_link_libraries(sandbox PRIVATE NeneIcecream)
-    elseif (EXISTS "${EXTERN_DIR}/NeneIcecream/include")
-        # ヘッダオンリー体制
-        target_include_directories(sandbox PRIVATE "${EXTERN_DIR}/NeneIcecream/include")
-        target_compile_definitions(sandbox PRIVATE HAVE_ICECREAM=1)
-    endif()
+    target_link_libraries(sandbox PRIVATE NeneLibrary NeneIcecream::NeneIcecream)
 endif()
 
-# --------------------------------------------------------------------------
-# 2 Unit Tests (GoogleTest)
-# --------------------------------------------------------------------------
+# Unit Tests
 if (BUILD_UNIT_TESTS)
-    enable_testing()  # ルートでも呼んでいるなら二重でも安全
-
-    if (USE_SUBMODULE_GTEST)
-        add_subdirectory("${EXTERN_DIR}/googletest" EXCLUDE_FROM_ALL)
-        if (TARGET GTest::gtest_main)
-            set(GTEST_LIBS GTest::gtest_main GTest::gtest)
-        else()
-            set(GTEST_LIBS gtest_main gtest)
-        endif()
-    else()
-        find_package(GTest CONFIG REQUIRED)
-        set(GTEST_LIBS GTest::gtest_main GTest::gtest)
-    endif()
-
+    add_subdirectory("${EXTERN_DIR}/NenePancake" "${CMAKE_CURRENT_BINARY_DIR}/_pancake")
     # ---- テスト1 ----------------------------------------------------------
     add_executable(testNeneLib1 testNeneLib1.cpp)
-    target_link_libraries(testNeneLib1 PRIVATE NeneLibrary ${GTEST_LIBS})
-    add_test(NAME unit1 COMMAND testNeneLib1)
-
+    target_link_libraries(testNeneLib1 PRIVATE NeneLibrary NenePancake::NenePancake)
     # ---- テスト2 ----------------------------------------------------------
     add_executable(testNeneLib2 testNeneLib2.cpp)
-    target_link_libraries(testNeneLib2 PRIVATE NeneLibrary ${GTEST_LIBS})
-    add_test(NAME unit2 COMMAND testNeneLib2)
-
-    # （任意）自動テスト検出を使いたい場合
-    include(GoogleTest OPTIONAL RESULT_VARIABLE _gtest_found)
-    if (_gtest_found)
-        gtest_discover_tests(testNeneLib1)
-        gtest_discover_tests(testNeneLib2)
-    endif()
+    target_link_libraries(testNeneLib2 PRIVATE NeneLibrary NenePancake::NenePancake)
 endif()
 ```
 
-## 開発手順
-以降, すべてのコマンドをルート直下 `NeneLibrary/` で実行するものとします.
-### 1. フォルダ構築
-```
-NeneLibrary/
-    README.md(.txt)
-    LICENSE.txt
-    .gitignore
-    .gitmodules
-    include/
-        NeneLibrary/
-            NeneLib1.hpp
-            NeneLib2.hpp
-    src/
-        NeneLib1.cpp
-        NeneLib2.cpp
-    tests/
-        CMakeLists.txt
-        sandbox.cpp
-        testNeneLib1.cpp
-        testNeneLib2.cpp
-    CMakeLists.txt
-    cmake/
-        NeneLibraryConfig.cmake.in
-```
-ここまでフォルダを構成します. 他は以降の操作で自動的に生成されます. 以下のコマンドを使用することで一括で作成できます:
-```bash
-# 後で作る
-```
-### 2. git config
-```bash
-git init
-git config --local user.name "SakuraNene"
-git config --local user.email "skrnn0505@gmail.com"
-```
-### 3. git submodules
-```bash
-git submodule add https://github.com/SakuraNeneCpp/NeneIcecream.git extern/NeneIcecream
-git submodule add https://github.com/google/googletest.git extern/googletest
-git submodule update --init --recursive
-```
-### 4. コーディング
-(頑張って書く. 以下は例)
+## NeneLib1, NeneLib2
+(以下は例)
 ```cpp
 // NeneLib1.hpp
 #pragma once
@@ -278,6 +196,51 @@ namespace nene {
 // std::string Counter::to_string() const { return "Counter(" + std::to_string(value_) + ")"; }
 }
 ```
+
+## 開発手順
+以降, すべてのコマンドをルート直下 `NeneLibrary/` で実行するものとします.
+### 1. フォルダ構築
+```
+NeneLibrary/
+    README.md(.txt)
+    LICENSE.txt
+    .gitignore
+    .gitmodules
+    include/
+        NeneLibrary/
+            NeneLib1.hpp
+            NeneLib2.hpp
+    src/
+        NeneLib1.cpp
+        NeneLib2.cpp
+    tests/
+        CMakeLists.txt
+        sandbox.cpp
+        testNeneLib1.cpp
+        testNeneLib2.cpp
+    CMakeLists.txt
+    cmake/
+        NeneLibraryConfig.cmake.in
+```
+ここまでフォルダを構成します. 他は以降の操作で自動的に生成されます. 以下のコマンドを使用することで一括で作成できます:
+```bash
+# 後で作る
+```
+### 2. git config
+```bash
+git init
+git config --local user.name "SakuraNene"
+git config --local user.email "skrnn0505@gmail.com"
+```
+### 3. git submodules
+```bash
+git submodule add https://github.com/SakuraNeneCpp/NeneIcecream.git extern/NeneIcecream
+git submodule add https://github.com/google/googletest.git extern/googletest
+git submodule update --init --recursive
+```
+### 4. コーディング
+(頑張って書く)
+
 ### 5. ビルド
 #### A. サンドボックス実行
 ```bash
