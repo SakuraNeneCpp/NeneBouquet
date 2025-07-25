@@ -134,10 +134,10 @@ endif()
 # Unit Tests
 if (BUILD_UNIT_TESTS)
     add_subdirectory("${EXTERN_DIR}/NenePancake" "${CMAKE_CURRENT_BINARY_DIR}/_pancake")
-    # ---- テスト1 ----------------------------------------------------------
+    # テスト1
     add_executable(testNeneLib1 testNeneLib1.cpp)
     target_link_libraries(testNeneLib1 PRIVATE NeneLibrary NenePancake::NenePancake)
-    # ---- テスト2 ----------------------------------------------------------
+    # テスト2
     add_executable(testNeneLib2 testNeneLib2.cpp)
     target_link_libraries(testNeneLib2 PRIVATE NeneLibrary NenePancake::NenePancake)
 endif()
