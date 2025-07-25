@@ -20,7 +20,7 @@ NeneLibrary/
     build/
     extern/
         NeneIcecream/
-        googletest/
+        NenePancake/
     tests/
         CMakeLists.txt
         sandbox.cpp
