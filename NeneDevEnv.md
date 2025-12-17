@@ -4,11 +4,11 @@
 - Visual Studio Code
 
 ## 手順
-1. **Visual Studio Build Tools(VSBT)**
+1. **Visual Studio Build Tools(VSBT)**  
     Visual Studioのエディターはこの世で最も醜いものの一つなので使わず, 中にあるBuild Toolsのみを使います. Visual Studioを入れずにこれだけをインストールできます.
     1. 公式サイト([https://visualstudio.microsoft.com/downloads/](https://visualstudio.microsoft.com/downloads/))の下の方からダウンロード(Tools for Visual Studio → Build Tools for Visual Studio 2022).
     2. C++によるデスクトップ開発にチェックを入れる.
-2. **vcpkg**
+3. **vcpkg**  
     パッケージマネージャ. VSBTの中にもvcpkgがありますが, 偽物なので使いません. vcpkgはユーザーディレクトリなどに入れるのが一般的らしいです. (OSの直下にフォルダを作って開発用のツールをまとめる人もいるらしい)
     1. インストールしたい場所で以下を順に実行する.
         ```bash
@@ -24,21 +24,21 @@
         ```
     2. システム環境変数のPATHに追加
         vcpkg.exeを持っているフォルダのパスをコピーしてPATHに追加します. 最も外側のvcpkgだと思います.
-3. **CMake**
+4. **CMake**  
     メタビルドシステム. 公式サイト([https://cmake.org/](https://cmake.org/))からインストールします.
 
-4. **母国語を取り戻す**
+5. **母国語を取り戻す**  
     現状ではC++のコード内で日本語(UTF-8)を書くとコンパイルに失敗します. そこでWindowsの設定を見直す必要があります.
-    1. 設定 → 時刻と言語 → 言語と地域 → 管理用の言語の設定 → システム ロケールの変更 → 「ベータ: ワールドワイド言語サポートでUnicode UTF-8を仕様」にチェックを入れる.
+    1. 設定 → 時刻と言語 → 言語と地域 → Windowsの表示言語 → 「ベータ版: 世界中の言語に対応するために Unicode UTF-8 を使用します」をオン.
     2. PCを再起動する.
-5. **VS Code拡張機能**
+6. **VS Code拡張機能**  
     - C/C++
     - CMake Tools
     - GitHub Pull Requests
 
     あたりがあれば十分だと思います. あとはお好みで.
 
-## サンプルコード
+## サンプルコード  
 プロジェクトフォルダの直下にCMakeLists.txtを作り, 以下のように書きます. (このファイル名にするとVSCode上でアイコンがMになると思います.)
 
 ```cmake
