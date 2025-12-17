@@ -33,7 +33,7 @@ git reset --hard $newroot
 ```bash
 git push --force-with-lease origin main
 ```
-GitHub等で main が保護ブランチなら、**一時的に「強制プッシュ許可」**が必要です。
+GitHub等で main が保護ブランチなら、一時的に「強制プッシュ許可」が必要です。
 
 共同開発者は以下で同期可能です：
 
