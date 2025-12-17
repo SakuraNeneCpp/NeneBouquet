@@ -1,4 +1,4 @@
-## なんか'.gitignore'できないファイルがあるんだけど！
+## なんか`.gitignore`できないファイルがあるんだけど！
 
 一度追跡したファイルを後から`.gitignore`すると失敗する. 履歴から削除しなければならない.
 ```bash
@@ -48,8 +48,8 @@ git reset --hard origin/main
 git gc --prune=now
 ```
 
-## 会社で'git clone'ができない！
-windowsでは, ブラウザはプロキシを通すのにGitは直接接続しようとしてタイムアウトになったりする. 'git config'にプロキシ設定を明記する必要がある.
+## 会社で`git clone`ができない！
+windowsでは, ブラウザはプロキシを通すのにGitは直接接続しようとしてタイムアウトになったりする. `git config`にプロキシ設定を明記する必要がある.
 ```powershell
 git config --global http.proxy [プロキシサーバのアドレス]
 git config --global https.proxy [プロキシサーバのアドレス]
