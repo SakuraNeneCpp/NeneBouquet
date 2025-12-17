@@ -15,6 +15,7 @@ git tag archive/2025-08-06 HEAD
 git clone --mirror . ../repo-backup.git
 ```
 1) ローカルでヒストリーを1コミット化
+
 **Bash**
 
 ```bash
@@ -43,12 +44,12 @@ git reset --hard origin/main
 ```
 （再クローンでもOK）
 
-3) お掃除（任意）
+3) 掃除（任意）
 ```bash
 git gc --prune=now
 ```
 
-## 会社で`git clone`ができない！
+## 会社で `git clone` ができない！
 windowsでは, ブラウザはプロキシを通すのにGitは直接接続しようとしてタイムアウトになったりする. `git config`にプロキシ設定を明記する必要がある.
 
 今, プロキシサーバのアドレスが`http://proxy.example:8080`であるならば,
@@ -72,3 +73,11 @@ git config --global user.email "you@example.com"
 # 今のリポジトリだけ変えたい場合
 git config --local  user.name  "Your Name"
 git config --local  user.email "you@example.com"
+```
+
+## 現在の `git config` を確認したい！
+```
+git config --system --list
+git config --global --list
+git config --local  --list
+```
