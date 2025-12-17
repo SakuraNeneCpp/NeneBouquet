@@ -56,3 +56,19 @@ windowsでは, ブラウザはプロキシを通すのにGitは直接接続し�
 git config --global http.proxy http://proxy.example:8080
 git config --global https.proxy http://proxy.example:8080
 ```
+
+## 自分のリポジトリなのにプッシュできない！
+古いGitHubアカウントが残っている可能性がある. 「コントロールパネル」→「ユーザーアカウント」→「資格情報マネージャー」→「Windowsの資格情報」から古いGitHubアカウントを削除し, VSCodeを再起動.
+
+
+## 編集者の名義をPCのユーザー名から変更したい！
+Gitではコミットの “Author/Committer” に user.name と user.email が使われる. 未設定のときはOSのユーザー名が自動で入る. これはGitHub上でコードの編集者として表示される. 変更するときは以下を実行.
+
+``` bash
+# すべてのリポジトリで共通にしたい場合
+git config --global user.name  "Your Name"
+git config --global user.email "you@example.com"
+
+# 今のリポジトリだけ変えたい場合
+git config --local  user.name  "Your Name"
+git config --local  user.email "you@example.com"
