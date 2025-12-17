@@ -27,15 +27,15 @@ git reset --hard "$newroot"
 $newroot = git commit-tree 'HEAD^{tree}' -m 'fresh start: squash history up to 2025-08-06'
 git reset --hard $newroot
 ```
-これでローカルのカレントブランチ（例：main）は、いまの内容だけを持つ1つのコミットになります。
+これでローカルのカレントブランチ（例：main）は, いまの内容だけを持つ1つのコミットになる.
 
 2) リモートを上書き（force-with-lease 推奨）
 ```bash
 git push --force-with-lease origin main
 ```
-GitHub等で main が保護ブランチなら、一時的に「強制プッシュ許可」が必要です。
+GitHub等で main が保護ブランチなら, 一時的に「強制プッシュ許可」が必要.
 
-共同開発者は以下で同期可能です：
+共同開発者は以下で同期可能：
 
 ```bash
 git fetch
@@ -50,7 +50,9 @@ git gc --prune=now
 
 ## 会社で`git clone`ができない！
 windowsでは, ブラウザはプロキシを通すのにGitは直接接続しようとしてタイムアウトになったりする. `git config`にプロキシ設定を明記する必要がある.
+
+今, プロキシサーバのアドレスが`http://proxy.example:8080`であるならば,
 ```powershell
-git config --global http.proxy [プロキシサーバのアドレス]
-git config --global https.proxy [プロキシサーバのアドレス]
+git config --global http.proxy http://proxy.example:8080
+git config --global https.proxy http://proxy.example:8080
 ```
